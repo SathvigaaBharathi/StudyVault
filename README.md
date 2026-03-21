@@ -27,10 +27,13 @@ A Smart Document Notes Organizer for students to upload, tag, and track study ma
    ```bash
    mysql -u root -p < database.sql
    ```
-   - Update `app.py` with your MySQL credentials:
-   ```python
-   app.config['MYSQL_USER'] = 'root'
-   app.config['MYSQL_PASSWORD'] = 'your_password'
+   - Create a `.env` file in the project root with your credentials:
+   ```
+   SECRET_KEY=your_secret_key
+   MYSQL_HOST=localhost
+   MYSQL_USER=root
+   MYSQL_PASSWORD=your_password
+   MYSQL_DB=studyvault
    ```
 
 4. Run the app
