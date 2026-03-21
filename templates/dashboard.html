@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<section>
+    <h3 class="mb-4"><i class="bi bi-speedometer2 text-primary"></i> Dashboard</h3>
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card text-white bg-primary shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-files fs-2"></i>
+                    <h2 class="mt-1">{{ total }}</h2>
+                    <p class="mb-0">Total Documents</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-success shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-clock-history fs-2"></i>
+                    <h2 class="mt-1">{{ recent|length }}</h2>
+                    <p class="mb-0">Recently Uploaded</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-warning shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-fire fs-2"></i>
+                    <h2 class="mt-1">{{ most_opened|length }}</h2>
+                    <p class="mb-0">Most Opened</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-white bg-secondary shadow-sm">
+                <div class="card-body text-center">
+                    <i class="bi bi-snow fs-2"></i>
+                    <h2 class="mt-1">{{ cold_docs|length }}</h2>
+                    <p class="mb-0">Cold Documents</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recently Uploaded -->
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light fw-semibold"><i class="bi bi-clock text-success"></i> Recently Uploaded</div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        {% for doc in recent %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-file-earmark-text text-muted me-1"></i>{{ doc.title }}</span>
+                            <span class="badge bg-{{ 'success' if doc.status == 'Active' else ('warning text-dark' if doc.status == 'Fading' else 'secondary') }}">{{ doc.status }}</span>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item text-muted">No documents yet.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Most Opened -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light fw-semibold"><i class="bi bi-fire text-warning"></i> Most Opened</div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        {% for doc in most_opened %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-file-earmark-text text-muted me-1"></i>{{ doc.title }}</span>
+                            <span class="badge bg-primary rounded-pill">{{ doc.view_count }} opens</span>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item text-muted">No data yet.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cold Documents -->
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-light fw-semibold"><i class="bi bi-snow text-secondary"></i> Cold Documents (not opened in 30+ days)</div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        {% for doc in cold_docs %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span><i class="bi bi-file-earmark-text text-muted me-1"></i>{{ doc.title }} <small class="text-muted">— {{ doc.subject }}</small></span>
+                            <span class="badge bg-secondary">Cold</span>
+                        </li>
+                        {% else %}
+                        <li class="list-group-item text-muted">No cold documents.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

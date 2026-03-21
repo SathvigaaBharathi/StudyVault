@@ -1,0 +1,22 @@
+body {
+    margin-top: 10px;
+    background-color: #f8f9fa;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+footer {
+    margin-top: 40px;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+}
+
+.table th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}

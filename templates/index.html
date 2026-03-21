@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="text-center py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <i class="bi bi-journal-bookmark-fill text-primary" style="font-size:4rem;"></i>
+            <h1 class="mt-3 fw-bold">StudyVault</h1>
+            <p class="lead text-muted">Your smart study document organizer. Upload, tag, track, and never lose a study material again.</p>
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-2">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg">Login</a>
+        </div>
+    </div>
+</section>
+
+<section class="py-4">
+    <div class="row g-4 text-center">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-upload text-primary fs-2"></i>
+                    <h5 class="card-title mt-2">Upload Documents</h5>
+                    <p class="card-text text-muted">Upload PDFs, DOCX, and PPTX files and organize them by subject and tags.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-bar-chart-fill text-success fs-2"></i>
+                    <h5 class="card-title mt-2">Track Usage</h5>
+                    <p class="card-text text-muted">See which documents you open most and which ones are gathering dust.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-tags-fill text-warning fs-2"></i>
+                    <h5 class="card-title mt-2">Smart Status</h5>
+                    <p class="card-text text-muted">Documents are automatically marked Active, Fading, or Cold based on usage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

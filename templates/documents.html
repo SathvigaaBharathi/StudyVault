@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block title %}My Documents{% endblock %}
+{% block content %}
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3><i class="bi bi-files text-primary"></i> My Documents</h3>
+        <a href="{{ url_for('upload') }}" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> Upload New</a>
+    </div>
+
+    <!-- Search & Filter -->
+    <form method="GET" action="{{ url_for('documents') }}" class="row g-2 mb-4" id="filterForm">
+        <div class="col-md-5">
+            <input type="text" name="search" class="form-control" placeholder="Search by title or tag..." value="{{ search }}">
+        </div>
+        <div class="col-md-4">
+            <select name="subject" class="form-select">
+                <option value="">All Subjects</option>
+                {% for s in subjects %}
+                <option value="{{ s }}" {% if s == subject_filter %}selected{% endif %}>{{ s }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3 d-flex gap-2">
+            <button type="submit" class="btn btn-outline-primary w-100"><i class="bi bi-search"></i> Filter</button>
+            <a href="{{ url_for('documents') }}" class="btn btn-outline-secondary w-100">Clear</a>
+        </div>
+    </form>
+
+    <!-- Documents Table -->
+    {% if documents %}
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Subject</th>
+                    <th>Tags</th>
+                    <th>Difficulty</th>
+                    <th>Opens</th>
+                    <th>Status</th>
+                    <th>Uploaded</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in documents %}
+                <tr>
+                    <td><i class="bi bi-file-earmark-text text-muted me-1"></i>{{ doc.title }}</td>
+                    <td>{{ doc.subject or '—' }}</td>
+                    <td>
+                        {% if doc.tags %}
+                            {% for tag in doc.tags.split(',') %}
+                                <span class="badge bg-light text-dark border">{{ tag.strip() }}</span>
+                            {% endfor %}
+                        {% else %}—{% endif %}
+                    </td>
+                    <td>
+                        {% if doc.difficulty == 1 %}<span class="badge bg-success">Easy</span>
+                        {% elif doc.difficulty == 2 %}<span class="badge bg-warning text-dark">Medium</span>
+                        {% else %}<span class="badge bg-danger">Hard</span>{% endif %}
+                    </td>
+                    <td>{{ doc.view_count }}</td>
+                    <td>
+                        {% if doc.status == 'Active' %}<span class="badge bg-success">Active</span>
+                        {% elif doc.status == 'Fading' %}<span class="badge bg-warning text-dark">Fading</span>
+                        {% else %}<span class="badge bg-secondary">Cold</span>{% endif %}
+                    </td>
+                    <td><small>{{ doc.created_at.strftime('%d %b %Y') }}</small></td>
+                    <td>
+                        <a href="{{ url_for('open_doc', filename=doc.file_path) }}" target="_blank" class="btn btn-sm btn-outline-primary" title="Open">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <form method="POST" action="{{ url_for('delete', doc_id=doc.id) }}" class="d-inline delete-form">
+                            <button type="submit" class="btn btn-sm btn-outline-danger delete-btn" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No documents found. <a href="{{ url_for('upload') }}">Upload your first document.</a>
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
