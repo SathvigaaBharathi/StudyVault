@@ -238,4 +238,7 @@ def delete(doc_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Get the port from Render's environment, default to 5000 for local dev
+    port = int(os.environ.get('PORT', 5000))
+    # Bind to 0.0.0.0 to make it accessible externally
+    app.run(host='0.0.0.0', port=port, debug=False)
