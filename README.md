@@ -52,3 +52,7 @@ A Smart Document Notes Organizer for students to upload, tag, and track study ma
 - Filter and search documents
 - Download or delete documents
 - Document status (Active / Fading / Cold) updates automatically based on last opened date
+
+### Deployed link
+
+https://studyvault-sjsy.onrender.com/
