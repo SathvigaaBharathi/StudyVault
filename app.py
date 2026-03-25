@@ -20,6 +20,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'pdf', 'docx', 'pptx', 'ppt', 'doc'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max
