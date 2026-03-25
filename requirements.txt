@@ -2,3 +2,4 @@ Flask
 flask-mysqldb
 Werkzeug
 python-dotenv
+gunicorn
