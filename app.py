@@ -10,6 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import datetime, date
 from functools import wraps
+import traceback
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'fallback_secret')
@@ -59,6 +60,11 @@ def login_required(f):
 
 
 # ── Routes ──────────────────────────────────────────────────────────────────
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # This will print the exact python stack trace to the browser screen
+    return f"<h1>System Error</h1><pre>{traceback.format_exc()}</pre>", 500
 
 @app.route('/')
 def index():
