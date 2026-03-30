@@ -1,4 +1,7 @@
 import os
+import pymysql
+pymysql.install_as_MySQLdb()
+
 from dotenv import load_dotenv
 load_dotenv()
 from flask import Flask, render_template, request, redirect, url_for, session, flash, send_from_directory
